@@ -31,7 +31,7 @@ const sessionMiddleware = async (req, res, next) => {
   } catch (error) {
     console.log({ sessionMiddlewareError: error });
 
-    await session.remove();
+    await session.deleteOne();
     await clearSession(req, res, sessionId);
 
     res.status(401).send("Not authorized!");

@@ -10,7 +10,9 @@ const getProfile = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    res.send({});
+    // await clearSession(req, res, sessionId);
+
+    res.send({ message: "User logout successfully!" });
   } catch (err) {
     console.log({ err });
     next(err);
