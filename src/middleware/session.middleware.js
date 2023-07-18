@@ -4,7 +4,9 @@ const { clearSession } = require("../utils/session");
 const sessionMiddleware = async (req, res, next) => {
   let session;
   try {
-    const sessionId = req?.headers?.cookie
+    console.log(req.headers.cookie);
+
+    const sessionId = decodeURIComponent(req?.headers?.cookie)
       ?.split?.("=")?.[1]
       ?.split?.("j:")?.[1]
       ?.split?.('"')?.[1];
@@ -31,8 +33,10 @@ const sessionMiddleware = async (req, res, next) => {
   } catch (error) {
     console.log({ sessionMiddlewareError: error });
 
-    await session.deleteOne();
-    await clearSession(req, res, sessionId);
+    if (session) {
+      await session.deleteOne();
+      await clearSession(req, res, sessionId);
+    }
 
     res.status(401).send("Not authorized!");
   }
