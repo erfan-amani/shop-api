@@ -1,6 +1,6 @@
 const getProfile = async (req, res, next) => {
   try {
-    const user = req.session.user;
+    const user = req.user;
 
     res.send(user);
   } catch (err) {
