@@ -4,6 +4,7 @@ const session = require("express-session");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 var cors = require("cors");
+const productRouter = require("./routes/product");
 require("dotenv").config();
 require("./db/mongoose");
 
@@ -44,6 +45,7 @@ app.use(function (req, res, next) {
 
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/product", productRouter);
 
 app.use((error, req, res, next) => {
   const { status = 500, message = error } = error || {};
