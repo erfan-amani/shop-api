@@ -5,12 +5,13 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 var cors = require("cors");
 const productRouter = require("./routes/product");
+const cartRouter = require("./routes/cart");
 require("dotenv").config();
 require("./db/mongoose");
 
 const app = express();
 
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: ["http://localhost:3000/"], credentials: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -46,6 +47,7 @@ app.use(function (req, res, next) {
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/cart", cartRouter);
 
 app.use((error, req, res, next) => {
   const { status = 500, message = error } = error || {};
