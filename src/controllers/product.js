@@ -1,3 +1,4 @@
+const Cart = require("../models/cart");
 const Product = require("../models/product");
 
 module.exports.getAllProducts = async (req, res, next) => {
@@ -16,7 +17,9 @@ module.exports.getOneProducts = async (req, res, next) => {
 
     const product = await Product.findById(id);
 
-    res.send(product);
+    const cart = await Cart.findOne({ product: id });
+
+    res.send({ product, cart });
   } catch (error) {
     next(error);
   }
