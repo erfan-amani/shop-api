@@ -55,3 +55,15 @@ module.exports.removeFromCart = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getCart = async (req, res, next) => {
+  try {
+    const cart = await Cart.find({
+      user: req.user._id,
+    }).populate("product");
+
+    res.status(200).send(cart);
+  } catch (error) {
+    next(error);
+  }
+};
